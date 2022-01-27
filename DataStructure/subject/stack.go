@@ -1,0 +1,3 @@
+package subject
+
+func TestStack() {}

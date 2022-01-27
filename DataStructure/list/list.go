@@ -35,7 +35,7 @@ func (l *List) ReleaseData() {
 }
 
 //ListAddNodeHead 加到链表的表头
-func (l *List) AddNodeHead(v interface{}) {
+func (l *List) AddHead(v interface{}) {
 	node := &Node{Data: v}
 	if l.Length == 0 {
 		l.Head = node
@@ -47,8 +47,8 @@ func (l *List) AddNodeHead(v interface{}) {
 	l.Length++
 }
 
-//ListAddNodeTail 添加到链表表尾
-func (l *List) AddNodeTail(v interface{}) {
+//AddTail 添加数据到链表表尾 Append操作
+func (l *List) AddTail(v interface{}) {
 	node := &Node{Data: v}
 	if l.Length == 0 {
 		l.Head.Next = node
@@ -67,26 +67,66 @@ func (l *List) AddNodeTail(v interface{}) {
 	l.Length++
 }
 
-//Insert 插入链表中间位置
-func (l *List) Insert() {}
+//Insert 插入数据到链表中间位置
+func (l *List) Insert(index uint, v interface{}) {
+	if l.Head == nil {
+		l.Head.Data = v
+		l.Length++
+		return
+	}
+	if index > l.Length {
+		l.AddTail(v)
+		return
+	}
+	current := l.Head
+	for current != nil {
 
-//Copy 深拷贝链表
-// func (l *List) Clone() *List {
-// 	l2 := new(List)
-// 	if l.Head == nil {
-// 		return l2
-// 	}
-// 	l2.Length = l.Length
-// 	for l.Head != nil {
-// 		l2.Head = &Node{
-// 			Data: l.Head.Data,
-// 			// Next: l.Head.Next,
-// 		}
-// 		l.Head = l.Head.Next
-// 	}
+		current = current.Next
+	}
+}
 
-// 	return l2
-// }
+//Get 获取某节点数据
+func (l *List) Get(index uint) *Node {
+
+	return l.Head
+}
+
+//Del 删除节点
+func (l *List) Del(index int) {
+
+}
+
+//Reverse 链表反转
+func (l *List) Reverse() {
+
+}
+
+//Clone 深拷贝链表
+func (l *List) Clone() *List {
+	l2 := new(List)
+	if l.Head == nil {
+		return l2
+	}
+	current := l.Head
+	for current != nil {
+		node := &Node{Data: current.Data, Next: current.Next}
+		node.Next = l2.Head //往后移
+		l2.Head = node
+		current = current.Next
+		l2.Length++
+	}
+	return l2
+}
+
+//Len 链表长度int
+func (l *List) Len() int {
+	return int(l.Length)
+}
+
+//IsEmpty 链表是否为空
+func (l *List) IsEmpty() bool {
+	return l.Head == nil
+}
 
 //ListShow 打印链表
 func (l *List) Show() {
@@ -94,6 +134,7 @@ func (l *List) Show() {
 		fmt.Printf("List is empty\n")
 		return
 	}
+	fmt.Println("===start===")
 	current := l.Head
 	for {
 		fmt.Printf("%p %v\n", &current.Data, current.Data)
@@ -103,4 +144,5 @@ func (l *List) Show() {
 		}
 		break
 	}
+	fmt.Println("====end====")
 }
