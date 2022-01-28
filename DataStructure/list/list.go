@@ -1,6 +1,8 @@
 package list
 
-import "fmt"
+import (
+	"fmt"
+)
 
 //Node 单链表节点
 type Node struct {
@@ -67,20 +69,31 @@ func (l *List) AddTail(v interface{}) {
 	l.Length++
 }
 
-//Insert 插入数据到链表中间位置
-func (l *List) Insert(index uint, v interface{}) {
+//Insert 插入数据到链表某个节点位置
+func (l *List) Insert(index int, v interface{}) {
 	if l.Head == nil {
 		l.Head.Data = v
 		l.Length++
 		return
 	}
-	if index > l.Length {
+	if index > l.Len() {
 		l.AddTail(v)
 		return
 	}
+	if index < 0 {
+		l.AddHead(v)
+		return
+	}
 	current := l.Head
+	// pre := l.Head
+	i := 0
 	for current != nil {
-
+		if index == i {
+			// fmt.Println(i)
+			current = &Node{Data: v, Next: current}
+			break
+		}
+		i++
 		current = current.Next
 	}
 }
@@ -136,13 +149,9 @@ func (l *List) Show() {
 	}
 	fmt.Println("===start===")
 	current := l.Head
-	for {
-		fmt.Printf("%p %v\n", &current.Data, current.Data)
-		if current.Next != nil {
-			current = current.Next
-			continue
-		}
-		break
+	for current != nil {
+		fmt.Printf("&Current:%p, &Data:%p, Data:%v\n", &current, &current.Data, current.Data)
+		current = current.Next
 	}
 	fmt.Println("====end====")
 }

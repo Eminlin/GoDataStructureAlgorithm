@@ -39,6 +39,6 @@ func TestList() {
 			====end====
 	*/
 
-	newList.Insert(1, &List.Node{})
+	newList.Insert(1, "hello")
 	newList.Show()
 }
