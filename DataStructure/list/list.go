@@ -4,16 +4,16 @@ import (
 	"fmt"
 )
 
-//Node 单链表节点
-type Node struct {
-	Data interface{}
-	Next *Node
-}
-
 //List 单链表 包含长度
 type List struct {
 	Length uint
 	Head   *Node
+}
+
+//Node 单链表节点
+type Node struct {
+	Data interface{}
+	Next *Node
 }
 
 //listCreate 分配链表
@@ -109,8 +109,23 @@ func (l *List) Del(index int) {
 
 }
 
-//Reverse 链表反转
+//Reverse 链表反转的迭代实现
 func (l *List) Reverse() {
+	if l.Head == nil {
+		return
+	}
+	newHead := new(Node)
+	for l.Head != nil {
+		next := l.Head.Next
+		l.Head.Next = newHead
+		newHead = l.Head
+		l.Head = next
+	}
+	l.Head = newHead
+}
+
+//ReverseRecursion 链表反转的递归实现  还有用栈实现、双指针实现
+func (l *List) ReverseRecursion() {
 
 }
 

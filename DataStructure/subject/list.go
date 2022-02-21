@@ -9,14 +9,17 @@ func TestList() {
 	list.AddHead(map[string]int{"a": 1})
 	list.AddTail(map[string]int{"b": 2})
 	list.AddTail(map[string]int{"b": 3})
-	list.AddHead(map[string]int{"d": 4})
+	list.AddTail(map[string]int{"d": 4})
+	// list.Show()
+
+	list.Reverse()
 	list.Show()
 
-	newList := list.Clone()
-	newList.Show()
+	// newList := list.Clone()
+	// newList.Show()
 
-	list.ReleaseData()
-	list.Show()
+	// list.ReleaseData()
+	// list.Show()
 	/*
 		$ go run main.go
 			===start===
@@ -39,6 +42,6 @@ func TestList() {
 			====end====
 	*/
 
-	newList.Insert(1, "hello")
-	newList.Show()
+	// newList.Insert(1, "hello")
+	// newList.Show()
 }
